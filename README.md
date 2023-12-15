@@ -1,5 +1,3 @@
-Certainly! Below is a basic step-by-step guide you can include in a README file to help users start a Next.js app:
-
 # Getting Started with Your Next.js App
 
 This guide will walk you through the process of setting up and running a basic Next.js application.
