@@ -229,7 +229,7 @@ const onDragOver = (event: DragOverEvent) => {
                         </button>
 
                         {  typeof document !== 'undefined' && createPortal(
-                            <DragOverlay>
+                            <DragOverlay style={{touchAction: 'none'}}>
                                 {
                                     activeColumn && 
                                     <Lane 
