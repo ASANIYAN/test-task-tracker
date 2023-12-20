@@ -203,7 +203,7 @@ const onDragOver = (event: DragOverEvent) => {
                 sensors={sensors} onDragStart={onDragStart} onDragEnd={onDragEnd} onDragOver={onDragOver}
             >
                 <section className="m-auto flex flex-col-reverse gap-4">
-                    <section className="flex flex-wrap justify-center gap-4">
+                    <section className="flex flex-wrap justify-center md:justify-start gap-8 md:gap-4">
                             <SortableContext items={columnsId}>
                                 {
                                     columns.map((col) => (
