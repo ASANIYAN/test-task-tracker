@@ -61,7 +61,9 @@ const createTask = (columnId: Id) => {
     const newTask: Task = {
         id: generateId(),
         columnId,
-        content: `Task ${tasks.length + 1}`,
+        content: `Task description ${tasks.length + 1}`,
+        date: new Date(),
+        name: `Task name ${tasks.length + 1}`
     };
 
     setTasks([...tasks, newTask]);
@@ -73,10 +75,10 @@ const deleteTask = (id: Id) => {
     setTasks(newTasks);
 }
 
-const updateTask = (id: Id, content: string) => {
+const updateTask = (id: Id, content: string, name: string) => {
     const newTasks = tasks.map(task => {
         if (task.id !== id) return task;
-        return { ...task, content };
+        return { ...task, content, name };
     });
 
     setTasks(newTasks);

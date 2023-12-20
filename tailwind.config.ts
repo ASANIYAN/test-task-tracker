@@ -13,7 +13,6 @@ const config: Config = {
       fontFamily: {
       },
       gridTemplateColumns: {
-        'grid_1': "repeat(auto-fill, minmax(300px, 1fr))",
       },
       screens: {
         'xxxs': '280px',

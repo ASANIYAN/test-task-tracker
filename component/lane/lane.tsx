@@ -13,7 +13,7 @@ interface LaneProps {
     deleteColumn: (id: Id) => void;
     updateColumn: (id: Id, title: string) => void;
     createTask: (columnId: Id) => void;
-    updateTask: (id: Id, content: string) => void;
+    updateTask: (id: Id, content: string, name: string) => void;
     deleteTask: (id: Id) => void;
     tasks: Task[];
 }
@@ -64,7 +64,7 @@ function Lane(props: LaneProps) {
             >
 
                 <section className="flex gap-0.5 items-center">
-                    <p className="flex items-center justify-center p-1 text-sm rounded-full">0</p>
+                    <p className="flex items-center justify-center p-1 text-sm rounded-full">{tasks.length}</p>
 
                     {!editMode && column.title}
                     {editMode && (<input
@@ -98,7 +98,7 @@ function Lane(props: LaneProps) {
 
             { column.id === "open" &&
                 <button 
-                    className="flex gap-2 items-center justify-center border-2 rounded-md p-4" 
+                    className="flex gap-2 items-center justify-center border-black border rounded-md p-4" 
                     onClick={() => createTask(column.id)}
                 >
                     <Add 
