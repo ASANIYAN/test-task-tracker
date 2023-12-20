@@ -41,6 +41,7 @@ function Lane(props: LaneProps) {
     const style = {
         transition,
         transform: CSS.Transform.toString(transform),
+        touchAction: 'none'
     };
 
     if (isDragging) {
@@ -91,7 +92,7 @@ function Lane(props: LaneProps) {
             <section className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto ">
                 
                 <SortableContext items={tasksIds}>{tasks.map((task) => (
-                <Card key={task.id} task={task} deleteTask={deleteTask} updateTask={updateTask}/>
+                    <Card key={task.id} task={task} deleteTask={deleteTask} updateTask={updateTask}/>
             ))}
             </SortableContext>
             </section>
