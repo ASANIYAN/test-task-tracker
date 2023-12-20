@@ -96,7 +96,7 @@ const Card = ({ task, deleteTask, updateTask }: TaskCardProps) => {
                     <p className=' w-full overflow-y-auto overflow-x-hidden text-sm'> {getDayMonthYearTime(task.date)} </p>
                 </section>
                 
-                {mouseIsOver &&
+                {/* {mouseIsOver && */}
                     <section className=''>
                         <button onClick={() => deleteTask(task.id)}
                             
@@ -107,7 +107,7 @@ const Card = ({ task, deleteTask, updateTask }: TaskCardProps) => {
                             <Edit2 onClick={() => setModal(true)} size={32} className='absolute right-4 top-[70%] -translate-y-1/2 p-2 rounded opacity-60 hover:opacity-100' color="#000000"/>
                         </button>
                     </section>
-                }
+                {/* } */}
             </section>
         </>
     )
