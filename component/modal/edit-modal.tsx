@@ -36,10 +36,13 @@ const EditModal = ({ handleEditModalClose, task, updateTask } : EditModalProp) =
         } else {
             setFormError({ taskName: false, description: false });
         }
+
+        if (!isTaskNameEmpty && !isDescriptionEmpty) {
+            updateTask(id, description, taskName);
+            handleEditModalClose();
+            SuccessToast("Edit Successful");
+        }
         
-        updateTask(id, description, taskName);
-        handleEditModalClose();
-        SuccessToast("Edit Successful");
     };
 
     return (
