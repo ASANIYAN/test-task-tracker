@@ -25,3 +25,10 @@ export const getDayMonthYearTime = (date: Date | undefined) => {
     return formattedDateTime;
 }
 
+export const setBodyOverflow = (property: string) => {
+    const bodyElement = document.body;
+    bodyElement.className = `${property}`;
+    // console.log(property, "property");
+    
+  };
+

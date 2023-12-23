@@ -46,7 +46,7 @@ const EditModal = ({ handleEditModalClose, task, updateTask } : EditModalProp) =
     };
 
     return (
-        <section className="max-w-[500px] h-fit bg-white shadow-md rounded-md p-5 z-20 absolute inset-0 mx-auto my-auto">
+        <section className="max-w-[500px] h-fit bg-white shadow-md rounded-md p-5 z-20 fixed inset-0 mx-auto my-auto">
             <section className="w-full flex justify-end">
                 <CloseSquare onClick={handleEditModalClose} color="#000000" className="cursor-pointer"/>
             </section>

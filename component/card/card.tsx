@@ -3,7 +3,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Id, Task } from '@/types/types';
 import { Edit2, Trash } from "iconsax-react";
-import { getDayMonthYearTime } from '@/utils/functions';
+import { getDayMonthYearTime, setBodyOverflow } from '@/utils/functions';
 import EditModal from '../modal/edit-modal';
 
 interface TaskCardProps {
@@ -45,7 +45,15 @@ const Card = ({ task, deleteTask, updateTask }: TaskCardProps) => {
         />
     }
 
-    const handleEditModalClose = () => setModal(false);
+    const handleEditModalOpen = () => { 
+        setBodyOverflow("!overflow-hidden");
+        setModal(true);
+    };
+    
+    const handleEditModalClose = () => { 
+        setBodyOverflow("");
+        setModal(false);
+    };
 
     // if (editMode) {
     //     return (   <section ref={setNodeRef} 
@@ -66,7 +74,7 @@ const Card = ({ task, deleteTask, updateTask }: TaskCardProps) => {
         <>
             { modal &&
                 <>
-                    <section className='fixed top-0 left-0 right-0 bottom-0 bg-black opacity-50 z-10 overflow-hidden' />
+                    <section className='fixed top-0 left-0 right-0 bottom-0 bg-black opacity-50 z-10 !overflow-y-hidden' />
                     <EditModal 
                         handleEditModalClose={handleEditModalClose}
                         task={task}
@@ -105,7 +113,7 @@ const Card = ({ task, deleteTask, updateTask }: TaskCardProps) => {
                             <Trash className='absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded opacity-60 hover:opacity-100' size={32} color="#000000"/>
                         </button>
                         <button>
-                            <Edit2 onClick={() => setModal(true)} size={32} className='absolute right-4 top-[70%] -translate-y-1/2 p-2 rounded opacity-60 hover:opacity-100' color="#000000"/>
+                            <Edit2 onClick={handleEditModalOpen} size={32} className='absolute right-4 top-[70%] -translate-y-1/2 p-2 rounded opacity-60 hover:opacity-100' color="#000000"/>
                         </button>
                     </section>
                 {/* } */}
