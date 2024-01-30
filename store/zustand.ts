@@ -3,7 +3,7 @@ import { generateId } from "@/utils/functions";
 import { create } from "zustand";
 
 const defaultTasks: Task[] = [];
-const defaultCols: Column[] = [
+export const defaultCols: Column[] = [
   {
     id: "open",
     title: "Open",

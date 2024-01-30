@@ -98,14 +98,15 @@ function Lane(props: LaneProps) {
             />
           )}
         </section>
-        {column.id !== "open" && (
+        {/* For deleting columns */}
+        {/* {column.id !== "open" && (
           <Trash
             size={32}
             color="#000"
             className="rounded px-1 py-2"
             onClick={() => deleteColumn(column.id)}
           />
-        )}
+        )} */}
       </section>
       <section className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto ">
         <SortableContext items={tasksIds}>

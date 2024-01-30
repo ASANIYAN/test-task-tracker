@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 
 import {
@@ -22,14 +22,33 @@ import { Column, Task } from "@/types/types";
 
 import Lane from "../lane/lane";
 import Card from "../card/card";
-import { useBoardStore } from "@/store/zustand";
+import { defaultCols, useBoardStore } from "@/store/zustand";
 
 const Board = () => {
   const { setTasks, columns, setColumns, createNewColumn } = useBoardStore();
+  const [selectedStatus, setSelectedStatus] = useState("All");
 
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
+
+  const handleStatusChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const status = event.target.value;
+
+    setSelectedStatus(status);
+
+    if (status === "All") {
+      // Show all columns
+      setColumns(() => defaultCols);
+    } else {
+      // Filter columns based on the selected status
+      const filteredColumns = defaultCols.filter(
+        (column) => column.title.trim() === status.trim()
+      );
+
+      setColumns(() => filteredColumns);
+    }
+  };
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -130,12 +149,27 @@ const Board = () => {
               ))}
             </SortableContext>
           </section>
-          <button
+          <section className="flex flex-col justify-center items-center gap-2.5">
+            {/* <button
             onClick={createNewColumn}
             className="h-[60px] max-w-[350px] cursor-pointer rounded-lg bg-mainBackgroundColor border-2  p-4 flex justify-center gap-2 button mx-auto items-center"
           >
             <AddCircle size="32" color="#000000" /> Add Column
-          </button>
+          </button> */}
+            <select
+              name="taskStatus"
+              id="taskStatus"
+              value={selectedStatus}
+              onChange={handleStatusChange}
+              className={`w-full border border-black bg-transparent p-2 rounded mt-2.5 focus:outline-none max-w-[400px] mx-auto`}
+            >
+              <option value="All">All</option>
+              <option value="Open">Open</option>
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
+              <option value="In-Progress">In-Progress</option>
+            </select>
+          </section>
 
           {typeof document !== "undefined" &&
             createPortal(
