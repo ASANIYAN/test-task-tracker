@@ -18,39 +18,16 @@ import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 
 import { AddCircle } from "iconsax-react";
 
-import { Column, Id, Task } from "@/types/types";
-import { generateId } from "@/utils/functions";
+import { Column, Task } from "@/types/types";
 
 import Lane from "../lane/lane";
 import Card from "../card/card";
-
-const defaultCols: Column[] = [
-  {
-    id: "open",
-    title: "Open",
-  },
-  {
-    id: "pending",
-    title: "Pending",
-  },
-  {
-    id: "in-progress",
-    title: "In-Progress",
-  },
-  {
-    id: "completed",
-    title: "Completed",
-  },
-];
-
-const defaultTasks: Task[] = [];
+import { useBoardStore } from "@/store/zustand";
 
 const Board = () => {
-  const [columns, setColumns] = useState<Column[]>(defaultCols);
+  const { setTasks, columns, setColumns, createNewColumn } = useBoardStore();
+
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
-
-  const [tasks, setTasks] = useState<Task[]>(defaultTasks);
-
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
 
@@ -61,59 +38,6 @@ const Board = () => {
       },
     })
   );
-
-  const createTask = (columnId: Id) => {
-    const newTask: Task = {
-      id: generateId(),
-      columnId,
-      content: `Task description ${tasks.length + 1}`,
-      date: new Date(),
-      name: `Task name ${tasks.length + 1}`,
-    };
-
-    setTasks([...tasks, newTask]);
-  };
-
-  const deleteTask = (id: Id) => {
-    const newTasks = tasks.filter((task) => task.id !== id);
-
-    setTasks(newTasks);
-  };
-
-  const updateTask = (id: Id, content: string, name: string, date: string) => {
-    const newTasks = tasks.map((task) => {
-      if (task.id !== id) return task;
-      return { ...task, content, name, date };
-    });
-
-    setTasks(newTasks);
-  };
-
-  const createNewColumn = () => {
-    const columnToAdd: Column = {
-      id: generateId(),
-      title: `Column ${columns.length + 1}`,
-    };
-
-    setColumns([...columns, columnToAdd]);
-  };
-
-  const deleteColumn = (id: Id) => {
-    const filteredColumns = columns.filter((col) => col.id !== id);
-    setColumns(filteredColumns);
-
-    const newTasks = tasks.filter((t) => t.columnId != id);
-    setTasks(newTasks);
-  };
-
-  const updateColumn = (id: Id, title: string) => {
-    const newColumns = columns.map((col) => {
-      if (col.id !== id) return col;
-      return { ...col, title };
-    });
-
-    setColumns(newColumns);
-  };
 
   const onDragStart = (event: DragStartEvent) => {
     if (event.active.data.current?.type === "Column") {
@@ -202,16 +126,7 @@ const Board = () => {
           <section className="flex flex-wrap justify-center gap-8 md:gap-4">
             <SortableContext items={columnsId}>
               {columns.map((col) => (
-                <Lane
-                  key={col.id}
-                  column={col}
-                  deleteColumn={deleteColumn}
-                  updateColumn={updateColumn}
-                  createTask={createTask}
-                  tasks={tasks.filter((task) => task.columnId === col.id)}
-                  deleteTask={deleteTask}
-                  updateTask={updateTask}
-                />
+                <Lane key={col.id} column={col} />
               ))}
             </SortableContext>
           </section>
@@ -225,26 +140,8 @@ const Board = () => {
           {typeof document !== "undefined" &&
             createPortal(
               <DragOverlay style={{ touchAction: "none" }}>
-                {activeColumn && (
-                  <Lane
-                    column={activeColumn}
-                    deleteColumn={deleteColumn}
-                    updateColumn={updateColumn}
-                    createTask={createTask}
-                    deleteTask={deleteTask}
-                    updateTask={updateTask}
-                    tasks={tasks.filter(
-                      (task) => task.columnId === activeColumn.id
-                    )}
-                  />
-                )}
-                {activeTask && (
-                  <Card
-                    deleteTask={deleteTask}
-                    updateTask={updateTask}
-                    task={activeTask}
-                  />
-                )}
+                {activeColumn && <Lane column={activeColumn} />}
+                {activeTask && <Card task={activeTask} />}
               </DragOverlay>,
               document.body
             )}

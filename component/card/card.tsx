@@ -5,14 +5,14 @@ import { Id, Task } from "@/types/types";
 import { Edit2, Trash } from "iconsax-react";
 import { getDayMonthYearTime, setBodyOverflow } from "@/utils/functions";
 import EditModal from "../modal/edit-modal";
+import { useBoardStore } from "@/store/zustand";
 
 interface TaskCardProps {
   task: Task;
-  deleteTask: (id: Id) => void;
-  updateTask: (id: Id, content: string, name: string, date: string) => void;
 }
 
-const Card = ({ task, deleteTask, updateTask }: TaskCardProps) => {
+const Card = ({ task }: TaskCardProps) => {
+  const { deleteTask, updateTask } = useBoardStore();
   const [mouseIsOver, setMouseIsOver] = useState<boolean>(false);
   const [editMode, setEditMode] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);

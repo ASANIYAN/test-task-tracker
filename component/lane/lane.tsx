@@ -7,27 +7,23 @@ import { Column, Id, Task } from "@/types/types";
 import Card from "../card/card";
 
 import { Trash, Add } from "iconsax-react";
+import { useBoardStore } from "@/store/zustand";
 
 interface LaneProps {
   column: Column;
-  deleteColumn: (id: Id) => void;
-  updateColumn: (id: Id, title: string) => void;
-  createTask: (columnId: Id) => void;
-  updateTask: (id: Id, content: string, name: string, date: string) => void;
-  deleteTask: (id: Id) => void;
-  tasks: Task[];
 }
 
 function Lane(props: LaneProps) {
+  const { column } = props;
+
   const {
-    column,
-    deleteColumn,
-    updateColumn,
+    tasks: taskFromStore,
     createTask,
-    tasks,
-    deleteTask,
-    updateTask,
-  } = props;
+    updateColumn,
+    deleteColumn,
+  } = useBoardStore();
+
+  const tasks = taskFromStore.filter((task) => task.columnId === column.id);
 
   const [editMode, setEditMode] = useState(false);
 
@@ -114,12 +110,7 @@ function Lane(props: LaneProps) {
       <section className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto ">
         <SortableContext items={tasksIds}>
           {tasks.map((task) => (
-            <Card
-              key={task.id}
-              task={task}
-              deleteTask={deleteTask}
-              updateTask={updateTask}
-            />
+            <Card key={task.id} task={task} />
           ))}
         </SortableContext>
       </section>
