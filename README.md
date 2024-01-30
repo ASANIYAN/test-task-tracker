@@ -72,3 +72,23 @@ Your app is now ready for production deployment.
 For more information on Next.js and its features, refer to the [official documentation](https://nextjs.org/docs).
 
 That's it! You've successfully set up and run a Next.js app. Happy coding!
+
+# Reason for Design Choice
+
+## Overview
+
+This project aims to provide a solution for task management. After careful consideration, a Kanban board design has been chosen for its ability to effectively represent a task management app.
+
+## Why a Kanban Board?
+
+### Visual Representation
+
+A Kanban board offers a visual representation of tasks, providing a clear and intuitive overview of the workflow. The board is divided into columns, each representing a different stage in the task lifecycle, such as "To Do," "In Progress," "Pending," and "Completed." This visual layout allows users to quickly grasp the current status of tasks.
+
+### Workflow Management
+
+Kanban boards facilitate easy workflow management. Users can easily move tasks between columns, reflecting the transition of tasks from one stage to another. This simplicity streamlines the task management process, ensuring that everyone involved in a project has a shared understanding of the work's progression.
+
+### Flexibility
+
+One of the key advantages of a Kanban board is its flexibility. The board can be adapted to various project management methodologies, making it suitable for a wide range of task management scenarios. Users can customize columns, labels, and other elements to align with their specific workflows and requirements.
